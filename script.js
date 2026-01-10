@@ -4,12 +4,12 @@
 function closeSidebar() {
     const sidebar = document.getElementById('sidebar-nav');
     const overlay = document.getElementById('sidebar-overlay');
-    
+
     if (sidebar) {
         sidebar.classList.remove('active');
         document.body.classList.remove('no-scroll');
     }
-    
+
     if (overlay) {
         overlay.classList.remove('active');
     }
@@ -19,84 +19,84 @@ function closeSidebar() {
 function openSidebar() {
     const sidebar = document.getElementById('sidebar-nav');
     const overlay = document.getElementById('sidebar-overlay');
-    
+
     if (sidebar) {
         sidebar.classList.add('active');
         document.body.classList.add('no-scroll');
     }
-    
+
     if (overlay) {
         overlay.classList.add('active');
     }
 }
 
 // Wait for DOM to load
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // Mobile menu toggle
     const hamburger = document.getElementById('hamburger-menu');
     const closeBtn = document.getElementById('close-menu');
     const overlay = document.getElementById('sidebar-overlay');
-    
+
     // Open sidebar when hamburger is clicked
     if (hamburger) {
-        hamburger.addEventListener('click', function(e) {
+        hamburger.addEventListener('click', function (e) {
             e.preventDefault();
             openSidebar();
         });
     }
-    
+
     // Close sidebar when close button is clicked
     if (closeBtn) {
-        closeBtn.addEventListener('click', function(e) {
+        closeBtn.addEventListener('click', function (e) {
             e.preventDefault();
             closeSidebar();
         });
     }
-    
+
     // Close sidebar when overlay is clicked
     if (overlay) {
-        overlay.addEventListener('click', function() {
+        overlay.addEventListener('click', function () {
             closeSidebar();
         });
     }
-    
+
     // Close sidebar with Escape key
-    document.addEventListener('keydown', function(e) {
+    document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape') {
             closeSidebar();
         }
     });
-    
+
     // Smooth scroll for all navigation links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
+        anchor.addEventListener('click', function (e) {
             // Don't prevent default for non-hash links or external links
-            if (this.getAttribute('href').startsWith('#') && 
-                !this.classList.contains('resume-btn') && 
+            if (this.getAttribute('href').startsWith('#') &&
+                !this.classList.contains('resume-btn') &&
                 !this.hasAttribute('target')) {
-                
+
                 e.preventDefault();
-                
+
                 const targetId = this.getAttribute('href');
                 const targetElement = document.querySelector(targetId);
-                
+
                 if (targetElement) {
                     targetElement.scrollIntoView({
                         behavior: 'smooth',
                         block: 'start'
                     });
-                    
+
                     // Close sidebar after a small delay
                     setTimeout(closeSidebar, 100);
                 }
             }
         });
     });
-    
+
     // Contact form submission
     const contactForm = document.querySelector('.contact-form');
     if (contactForm) {
-        contactForm.addEventListener('submit', async function(e) {
+        contactForm.addEventListener('submit', async function (e) {
             e.preventDefault();
 
             const name = document.getElementById('name').value.trim();
@@ -150,11 +150,11 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-    
+
     // Button functionality
     const secondaryBtn = document.querySelector('.btn-secondary');
     if (secondaryBtn) {
-        secondaryBtn.addEventListener('click', function() {
+        secondaryBtn.addEventListener('click', function () {
             const contactSection = document.getElementById('contact');
             if (contactSection) {
                 contactSection.scrollIntoView({ behavior: 'smooth' });
@@ -163,7 +163,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     const primaryBtn = document.querySelector('.btn-primary');
     if (primaryBtn) {
-        primaryBtn.addEventListener('click', function() {
+        primaryBtn.addEventListener('click', function () {
             const contactSection = document.getElementById('projects');
             if (contactSection) {
                 contactSection.scrollIntoView({ behavior: 'smooth' });
@@ -177,7 +177,7 @@ document.addEventListener('DOMContentLoaded', function() {
         renderFeaturedProjects(false);
         const viewMoreBtn = document.getElementById('view-more-projects');
         if (viewMoreBtn) {
-            viewMoreBtn.addEventListener('click', function() {
+            viewMoreBtn.addEventListener('click', function () {
                 renderFeaturedProjects(true);
             });
         }
@@ -189,7 +189,7 @@ document.addEventListener('DOMContentLoaded', function() {
         renderCertifications(false);
         const viewMoreBtn = document.getElementById('view-more-certifications');
         if (viewMoreBtn) {
-            viewMoreBtn.addEventListener('click', function() {
+            viewMoreBtn.addEventListener('click', function () {
                 renderCertifications(true);
             });
         }
@@ -197,6 +197,55 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Modal wiring
     setupModal();
+
+    // ---------- Scroll Reveal Animation ----------
+    const revealElements = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+                observer.unobserve(entry.target); // Animate once
+            }
+        });
+    }, { threshold: 0.15 });
+
+    revealElements.forEach(el => revealObserver.observe(el));
+
+    // ---------- Typing Effect ----------
+    const typingSpan = document.querySelector('.typing-text');
+    if (typingSpan) {
+        const words = ["Mobile App Developer", "AWS Certified Developer", "Flutter Expert", "Tech Enthusiast"];
+        let wordIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        let typeSpeed = 100;
+
+        function type() {
+            const currentWord = words[wordIndex];
+
+            if (isDeleting) {
+                typingSpan.textContent = currentWord.substring(0, charIndex--);
+                typeSpeed = 50;
+            } else {
+                typingSpan.textContent = currentWord.substring(0, charIndex++);
+                typeSpeed = 100;
+            }
+
+            if (!isDeleting && charIndex === currentWord.length + 1) {
+                isDeleting = true;
+                typeSpeed = 2000; // Pause at end of word
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                wordIndex = (wordIndex + 1) % words.length;
+                typeSpeed = 500; // Pause before next word
+            }
+
+            setTimeout(type, typeSpeed);
+        }
+
+        // Start typing
+        type();
+    }
 });
 
 // Form message helper
@@ -206,17 +255,17 @@ function showFormMessage(message, type) {
     if (existingMessage) {
         existingMessage.remove();
     }
-    
+
     // Create new message element
     const messageEl = document.createElement('div');
     messageEl.className = `form-message form-message-${type}`;
     messageEl.textContent = message;
-    
+
     // Insert message above the form
     const form = document.querySelector('.contact-form');
     const container = document.querySelector('.contact-form-container');
     container.insertBefore(messageEl, form);
-    
+
     // Auto-remove message after 5 seconds
     setTimeout(() => {
         if (messageEl.parentNode) {

@@ -1,8 +1,203 @@
 /* Reset & Base Styles */
+:root {
+    --neon-cyan: #00f3ff;
+    --neon-magenta: #bc13fe;
+    --void-black: #050505;
+    --grid-line: rgba(0, 243, 255, 0.1);
+}
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--void-black);
+    /* Cyber-Grid Background */
+    background-image:
+        linear-gradient(var(--grid-line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+    background-size: 40px 40px;
+    background-position: center top;
+    color: #e0e0e0;
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+    line-height: 1.6;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--void-black);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--neon-cyan);
+    border-radius: 4px;
+    box-shadow: 0 0 10px var(--neon-cyan);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #fff;
+    box-shadow: 0 0 20px var(--neon-cyan);
+}
+
+/* Gradient Headings & Neon Text */
+section h2,
+.hero-text h1 {
+    color: #fff;
+    /* Fallback */
+    text-shadow:
+        0 0 5px var(--neon-cyan),
+        0 0 10px var(--neon-cyan),
+        0 0 20px var(--neon-cyan);
+    background: none !important;
+    -webkit-text-fill-color: initial !important;
+    display: inline-block;
+}
+
+/* Glitch Effect Animation */
+.glitch {
+    position: relative;
+    color: white;
+}
+
+.glitch::before,
+.glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--void-black);
+}
+
+.glitch::before {
+    left: 2px;
+    text-shadow: -2px 0 var(--neon-magenta);
+    clip: rect(24px, 550px, 90px, 0);
+    animation: glitch-anim-2 3s infinite linear alternate-reverse;
+}
+
+.glitch::after {
+    left: -2px;
+    text-shadow: -2px 0 var(--neon-cyan);
+    clip: rect(85px, 550px, 140px, 0);
+    animation: glitch-anim-1 2.5s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim-1 {
+    0% {
+        clip: rect(20px, 9999px, 80px, 0);
+    }
+
+    20% {
+        clip: rect(100px, 9999px, 110px, 0);
+    }
+
+    40% {
+        clip: rect(60px, 9999px, 20px, 0);
+    }
+
+    60% {
+        clip: rect(10px, 9999px, 140px, 0);
+    }
+
+    80% {
+        clip: rect(130px, 9999px, 40px, 0);
+    }
+
+    100% {
+        clip: rect(50px, 9999px, 130px, 0);
+    }
+}
+
+@keyframes glitch-anim-2 {
+    0% {
+        clip: rect(120px, 9999px, 10px, 0);
+    }
+
+    20% {
+        clip: rect(30px, 9999px, 100px, 0);
+    }
+
+    40% {
+        clip: rect(90px, 9999px, 20px, 0);
+    }
+
+    60% {
+        clip: rect(10px, 9999px, 110px, 0);
+    }
+
+    80% {
+        clip: rect(40px, 9999px, 90px, 0);
+    }
+
+    100% {
+        clip: rect(130px, 9999px, 20px, 0);
+    }
+}
+
+/* Scroll Reveal Animation */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease-out;
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Holographic Card Effect */
+.about-card,
+.skill-category-card,
+.project-card,
+.certification-card {
+    background: rgba(5, 5, 5, 0.7) !important;
+    border: 1px solid var(--grid-line) !important;
+    border-top: 1px solid rgba(0, 243, 255, 0.5) !important;
+    box-shadow: 0 0 10px rgba(0, 243, 255, 0.1);
+    backdrop-filter: blur(5px);
+    transition: all 0.3s ease;
+}
+
+.about-card:hover,
+.skill-category-card:hover,
+.project-card:hover,
+.certification-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow:
+        0 0 20px var(--grid-line),
+        0 0 40px rgba(0, 243, 255, 0.2),
+        inset 0 0 20px rgba(0, 243, 255, 0.1);
+    border-color: var(--neon-cyan) !important;
+}
+
+/* Typing Cursor */
+.typing-text::after {
+    content: "|";
+    animation: blink 1s infinite;
+    color: #00ccff;
+}
+
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
 }
 
 body {

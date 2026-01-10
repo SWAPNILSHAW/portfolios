@@ -25,7 +25,10 @@ a {
     color: inherit;
 }
 
-h1, h2, h3, h4 {
+h1,
+h2,
+h3,
+h4 {
     color: #66a3ff;
 }
 
@@ -218,13 +221,33 @@ nav .logo {
     border-top: 1px solid rgba(0, 255, 255, 0.2);
     width: 100%;
     margin-top: auto;
+    gap: 15px;
+}
+
+.sidebar-social-icons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
 }
 
 .sidebar-nav .nav-icons-sidebar a {
-    margin: 10px 0;
-    font-size: 1.5rem;
     color: #00ccff;
     padding: 5px;
+    /* Reset margins for icons inside the row container */
+    margin: 0;
+}
+
+/* Specific styling for the resume button which is a direct child */
+.sidebar-nav .nav-icons-sidebar>.resume-btn {
+    margin-bottom: 5px;
+    color: white !important;
+    /* Ensure text remains white against blue background */
+}
+
+.sidebar-nav .nav-icons-sidebar .sidebar-social-icons a {
+    font-size: 1.5rem;
 }
 
 .sidebar-nav .nav-icons-sidebar a:hover {
@@ -637,8 +660,10 @@ nav .logo {
     background: linear-gradient(to bottom, #00ccff, #0066ff);
     top: 0;
     bottom: 0;
-    left: 50%; /* Center the line for desktop */
-    margin-left: -1.5px; /* Adjust for half line width */
+    left: 50%;
+    /* Center the line for desktop */
+    margin-left: -1.5px;
+    /* Adjust for half line width */
     box-shadow: 0 0 20px rgba(0, 204, 255, 0.8);
     border-radius: 2px;
 }
@@ -675,11 +700,13 @@ nav .logo {
 }
 
 .education-item:nth-child(odd)::after {
-    right: -12px; /* Position dot for left-side items */
+    right: -12px;
+    /* Position dot for left-side items */
 }
 
 .education-item:nth-child(even)::after {
-    left: -12px; /* Position dot for right-side items */
+    left: -12px;
+    /* Position dot for right-side items */
 }
 
 .education-content {
@@ -967,6 +994,7 @@ nav .logo {
         opacity: 0;
         transform: translateY(-10px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -1070,15 +1098,16 @@ footer p {
 
 /* Responsive Styles */
 @media (max-width: 768px) {
+
     /* General */
     section {
         padding: 50px 20px;
     }
-    
+
     section h2 {
         font-size: 2rem;
     }
-    
+
     /* Navbar */
     nav {
         padding: 20px;
@@ -1086,20 +1115,20 @@ footer p {
         width: 100%;
         height: 70px;
     }
-    
+
     .nav-links-desktop,
     .nav-icons-desktop {
         display: none;
     }
-    
+
     .hamburger {
         display: block;
     }
-    
+
     .sidebar-nav.active .close-btn {
         display: block;
     }
-    
+
     /* Hero Section */
     .hero {
         padding-top: 100px;
@@ -1108,84 +1137,96 @@ footer p {
         padding-left: 20px;
         padding-right: 20px;
     }
-    
+
     .hero img {
         margin-top: 30px;
         width: 250px;
         height: 250px;
     }
-    
+
     .buttons button {
         margin-right: 0;
         margin-bottom: 15px;
         width: 100%;
     }
-    
+
     /* About Cards */
     .about-card {
         width: 100%;
         max-width: 350px;
         padding: 25px;
     }
-    
+
     /* Skills */
     .skills-categories-container {
         flex-direction: column;
         align-items: center;
         gap: 25px;
     }
-    
+
     .skill-category-card {
         width: 100%;
         max-width: 350px;
         padding: 25px 20px;
     }
-    
+
     /* Education Timeline - MOBILE SPECIFIC CHANGES */
     .education-timeline {
-        padding-left: 0; /* Remove padding here, move it to the item */
+        padding-left: 0;
+        /* Remove padding here, move it to the item */
         padding-right: 0;
-        max-width: 100%; /* Allow it to take full width */
+        max-width: 100%;
+        /* Allow it to take full width */
     }
-    
+
     .education-timeline::before {
-        left: 30px; /* Position the line consistently on the left */
-        transform: translateX(-50%); /* Center the line perfectly at 30px from left edge */
+        left: 30px;
+        /* Position the line consistently on the left */
+        transform: translateX(-50%);
+        /* Center the line perfectly at 30px from left edge */
     }
-    
+
     .education-item {
-        width: 100%; /* Take full width */
-        padding: 10px 20px 10px 70px; /* Adjust padding to make space for the line and dot */
-        left: 0; /* All items start from the left */
-        margin-bottom: 30px; /* Maintain spacing between items */
+        width: 100%;
+        /* Take full width */
+        padding: 10px 20px 10px 70px;
+        /* Adjust padding to make space for the line and dot */
+        left: 0;
+        /* All items start from the left */
+        margin-bottom: 30px;
+        /* Maintain spacing between items */
     }
 
     /* Remove specific odd/even positioning for mobile, all items stack */
     .education-item:nth-child(odd),
     .education-item:nth-child(even) {
-        left: 0; /* Ensure all items align left */
+        left: 0;
+        /* Ensure all items align left */
     }
-    
+
     .education-item::after {
-        left: 20px; /* Position dots consistently on the left, aligned with the timeline */
-        right: auto; /* Remove any right positioning */
-        transform: none; /* Remove any previous transforms */
+        left: 20px;
+        /* Position dots consistently on the left, aligned with the timeline */
+        right: auto;
+        /* Remove any right positioning */
+        transform: none;
+        /* Remove any previous transforms */
     }
-    
+
     .education-header {
         flex-direction: column;
         align-items: flex-start;
     }
-    
+
     .education-date {
         margin-top: 10px;
         margin-left: 0;
     }
-    
+
     .education-title {
         font-size: 1.5rem;
     }
-    
+
     /* Certifications */
     .certifications-container {
         flex-direction: column;
@@ -1193,14 +1234,14 @@ footer p {
         gap: 20px;
         padding: 0 15px;
     }
-    
+
     .certification-card {
         width: 100%;
         max-width: 300px;
         padding: 25px;
         min-height: 260px;
     }
-    
+
     /* Contact Form */
     .contact-form-container {
         padding: 30px 20px;
@@ -1212,11 +1253,11 @@ footer p {
     .sidebar-nav {
         width: 300px;
     }
-    
+
     .sidebar-nav a {
         padding: 18px 25px;
     }
-    
+
     .sidebar-nav .nav-icons-sidebar {
         flex-direction: row;
         justify-content: center;
@@ -1228,7 +1269,7 @@ footer p {
         font-size: 1.8rem;
         margin: 0;
     }
-    
+
     .sidebar-nav .nav-icons-sidebar .resume-btn {
         color: white !important;
     }

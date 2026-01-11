@@ -10,6 +10,7 @@
 </head>
 
 <body>
+    <canvas id="matrix-canvas"></canvas>
     <div class="sidebar-overlay" id="sidebar-overlay"></div>
 
     <nav>
@@ -18,6 +19,7 @@
         <div class="nav-links-desktop">
             <a href="#about">About</a>
             <a href="#skills">Skills</a>
+            <a href="#patents">Patents</a>
             <a href="#projects">Projects</a>
             <a href="#education">Education</a>
             <a href="#certifications">Certifications</a>
@@ -47,6 +49,7 @@
 
         <a href="#about">About</a>
         <a href="#skills">Skills</a>
+        <a href="#patents">Patents</a>
         <a href="#projects">Projects</a>
         <a href="#education">Education</a>
         <a href="#certifications">Certifications</a>
@@ -183,6 +186,27 @@
             </div>
 
         </div>
+    </section>
+
+    <section id="patents" class="reveal">
+        <h2>Patents</h2>
+        <p class="section-description">Innovative solutions and intellectual property developed.</p>
+        <div class="patents-container" id="patents-container"></div>
+
+        <script type="application/json" id="patents-data">
+        {
+            "patents": [
+                {
+                    "title": "AI CCTV Surveillance and Alert System",
+                    "id": "Published",
+                    "year": "2025",
+                    "description": "A robust real-time video analytics system capable of detecting anomalies, intruders, and safety violations with high precision. Leverages advanced computer vision models to process multiple feeds simultaneously.",
+                    "status": "Patent Published",
+                    "icon": "fas fa-video"
+                }
+            ]
+        }
+        </script>
     </section>
 
     <section id="projects" class="reveal">
@@ -416,11 +440,14 @@
         </div>
     </section>
 
+
+
     <footer>
         <h2>SWAPNIL SHAW</h2>
         <div class="footer-links">
             <a href="#about">About</a>
             <a href="#skills">Skills</a>
+            <a href="#patents">Patents</a>
             <a href="#projects">Projects</a>
             <a href="#education">Education</a>
             <a href="#certifications">Certifications</a>

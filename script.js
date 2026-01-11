@@ -195,6 +195,12 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
+    // ---------- Patents (dynamic) ----------
+    const patentsContainer = document.getElementById('patents-container');
+    if (patentsContainer) {
+        renderPatents();
+    }
+
     // Modal wiring
     setupModal();
 
@@ -245,6 +251,52 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Start typing
         type();
+    }
+
+    // ---------- Matrix Rain Animation (Permanent) ----------
+    const canvas = document.getElementById('matrix-canvas');
+    if (canvas) {
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        const katakana = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッン';
+        const latin = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        const nums = '0123456789';
+        const alphabet = katakana + latin + nums;
+
+        const fontSize = 16;
+        const columns = canvas.width / fontSize;
+        const rainDrops = [];
+
+        for (let x = 0; x < columns; x++) {
+            rainDrops[x] = 1;
+        }
+
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(0, 5, 5, 0.05)'; // Dark fade
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#00f3ff'; // Neon Cyan text
+            ctx.font = fontSize + 'px monospace';
+
+            for (let i = 0; i < rainDrops.length; i++) {
+                const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
+                ctx.fillText(text, i * fontSize, rainDrops[i] * fontSize);
+
+                if (rainDrops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    rainDrops[i] = 0;
+                }
+                rainDrops[i]++;
+            }
+        }
+
+        setInterval(drawMatrix, 30);
     }
 });
 
@@ -384,6 +436,46 @@ function renderCertifications(showAll = false) {
         }
     } catch (e) {
         console.warn('Invalid certifications-data JSON:', e);
+    }
+}
+
+function renderPatents() {
+    const holder = document.getElementById('patents-container');
+    const script = document.getElementById('patents-data');
+    if (!holder || !script) return;
+
+    try {
+        const cfg = JSON.parse(script.textContent || '{}');
+        const list = Array.isArray(cfg.patents) ? cfg.patents : [];
+        if (!list.length) return;
+
+        const frag = document.createDocumentFragment();
+        list.forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'patent-card';
+
+            const title = escapeHtml(item.title || 'Patent');
+            const status = escapeHtml(item.status || 'Pending');
+            const desc = escapeHtml(item.description || '');
+            const year = escapeHtml(item.year || '');
+            const icon = item.icon || 'fas fa-lightbulb';
+
+            card.innerHTML = `
+                <div class="patent-icon">
+                    <i class="${icon}"></i>
+                </div>
+                <h3>${title}</h3>
+                <div class="patent-status">${status}</div>
+                <p class="patent-desc">${desc}</p>
+                <div class="patent-meta">Year: ${year}</div>
+            `;
+            frag.appendChild(card);
+        });
+        holder.innerHTML = '';
+        holder.appendChild(frag);
+
+    } catch (e) {
+        console.warn('Invalid patents-data JSON:', e);
     }
 }
 

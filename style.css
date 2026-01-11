@@ -12,6 +12,18 @@
     box-sizing: border-box;
 }
 
+/* Matrix Canvas (Permanent Background) */
+#matrix-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    opacity: 0.15;
+    /* Subtle overlay */
+}
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: var(--void-black);
@@ -75,7 +87,7 @@ section h2,
     left: 0;
     width: 100%;
     height: 100%;
-    background: var(--void-black);
+    background: transparent;
 }
 
 .glitch::before {
@@ -160,7 +172,8 @@ section h2,
 .about-card,
 .skill-category-card,
 .project-card,
-.certification-card {
+.certification-card,
+.patent-card {
     background: rgba(5, 5, 5, 0.7) !important;
     border: 1px solid var(--grid-line) !important;
     border-top: 1px solid rgba(0, 243, 255, 0.5) !important;
@@ -172,7 +185,8 @@ section h2,
 .about-card:hover,
 .skill-category-card:hover,
 .project-card:hover,
-.certification-card:hover {
+.certification-card:hover,
+.patent-card:hover {
     transform: translateY(-10px) scale(1.02);
     box-shadow:
         0 0 20px var(--grid-line),
@@ -1468,4 +1482,121 @@ footer p {
     .sidebar-nav .nav-icons-sidebar .resume-btn {
         color: white !important;
     }
+}
+
+/* Small Mobile Devices (Phones, less than 480px) */
+@media (max-width: 480px) {
+    section {
+        padding: 40px 15px;
+    }
+
+    .hero-text h1 {
+        font-size: 2.2rem;
+    }
+
+    .hero img {
+        width: 200px;
+        height: 200px;
+    }
+
+    section h2 {
+        font-size: 1.8rem;
+    }
+
+    .hero-text p,
+    .section-description {
+        font-size: 0.95rem;
+    }
+
+    /* Adjust buttons to stack */
+    .buttons button {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 15px;
+        font-size: 0.95rem;
+        padding: 12px 20px;
+    }
+
+    .about-card,
+    .skill-category-card,
+    .project-card,
+    .certification-card {
+        padding: 20px;
+        width: 100%;
+    }
+
+    .technology-tags {
+        gap: 8px;
+    }
+
+    .tech-tag {
+        font-size: 0.8rem;
+        padding: 6px 10px;
+    }
+}
+
+/* Patents Section */
+.patents-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 40px;
+}
+
+.patent-card {
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 25px;
+    border-radius: 12px;
+    border: 1px solid rgba(0, 255, 255, 0.2);
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    width: 350px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.patent-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 0 30px rgba(0, 255, 255, 0.8);
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.patent-icon {
+    font-size: 2.5rem;
+    color: #00ccff;
+    margin-bottom: 15px;
+    text-shadow: 0 0 10px rgba(0, 204, 255, 0.6);
+}
+
+.patent-card h3 {
+    margin-bottom: 10px;
+    color: #ffffff;
+    font-size: 1.3rem;
+}
+
+.patent-status {
+    background: rgba(255, 165, 0, 0.2);
+    color: #ffa500;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+    border: 1px solid rgba(255, 165, 0, 0.4);
+}
+
+.patent-desc {
+    color: #cccccc;
+    font-size: 0.95rem;
+    margin-bottom: 15px;
+}
+
+.patent-meta {
+    font-size: 0.85rem;
+    color: #888;
+    margin-top: auto;
 }
